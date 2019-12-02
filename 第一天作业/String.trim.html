@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/assert.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        String.prototype.trim = String.prototype.trim || function(){
+            console.log(typeof this)
+            // assert(typeof this === "String",'只能给string对象调用trim方法');
+            console.log('调用自己的trim方法');
+            return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');//这里正则是抄的，回头记得看
+        }
+
+        var str1 = '123';
+        var str2 = "  4 5 6    ";
+        var str3 = [1,2,3];
+        alert(str1.trim());
+        alert(str2.trim());
+        alert(str3.trim());
+    </script>
+</body>
+</html>

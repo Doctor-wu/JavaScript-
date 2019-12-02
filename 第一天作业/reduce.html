@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.prototype.reduce = Array.prototype.reduce || function (fn, initialValue) {
+            if (this === null) {
+                throw new TypeError('Array.prototype.reduce ' +
+                    'called on null or undefined');
+            }
+            if (typeof fn !== 'function') {
+                throw new TypeError(callback +
+                    ' is not a function');
+            }
+            if (this.length == 0) throw new Error('空数组不能reduce');
+            var accumulator = 0;
+            if (initialValue) accumulator += initialValue;
+            for (var i = 0; i < this.length; i++) {
+                accumulator = fn(accumulator, this[i]);
+            }
+            console.log("调用自己的reduce");
+            return accumulator;
+        }
+
+        var array1 = [1, 2, 3, 4];
+        var array2 = [];
+        var reducer = function (accumulator, currentValue) { return accumulator + currentValue; }
+        alert(array1.reduce(reducer));
+        alert(array1.reduce(reducer, 8));
+        alert(array2.reduce(reducer));
+    </script>
+</body>
+
+</html>

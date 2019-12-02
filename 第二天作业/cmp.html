@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cmp1</title>
+    <style>
+        .Usertable{
+            height: 400px;
+            width: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <div>
+            一个div
+        </div>
+        <Cmp1 @click = "fn"></Cmp1>
+        <Cmp1></Cmp1>
+        <Cmp1></Cmp1>
+        <Usertable></Usertable>
+    </div>
+    <script>
+        function render(options){
+            let root = null;
+            if(!options.root){
+                throw new Error('root is required');
+            }else if(typeof options.root == "string"){
+                root = document.querySelector(options.root);
+                if(!root){
+                    throw new Error(`${options.root} is not found`)
+                }
+            }else if(options.root instanceof HTMLElement){
+                root = options.root;
+                // alert(root);
+            }else{
+                throw new Error('root is invailed');
+            }
+            //找出自定义元素
+
+            let elements = root.getElementsByTagName('*');
+            // console.log(elements)
+            Array.from(elements).forEach(element => {
+                // console.log(element.constructor) 
+                // HTMLUnknownElement()
+                if(element.constructor == HTMLUnknownElement){
+                    // console.log(element.tagName)
+                    for(let cmpName in options.components){
+                        if(cmpName.toUpperCase() == element.tagName){
+                            // console.log(cmpName)
+                            let cmpCls = options.components[cmpName];
+                            let res =  new cmpCls();
+                            console.log(element);
+                            // options.methods['fn']();
+                            let cmp = res.render();
+
+                            element.parentNode.replaceChild(cmp,element);
+                        }
+                    }
+                }
+            });
+
+        }
+
+        class Component{
+            render(){
+                throw new Error('render is required');
+            }
+            
+        }
+
+        class Cmp1 extends Component{
+            render(){
+                let div = document.createElement('div');
+                div.innerHTML = '我是Cmp1';
+                return div;
+            }
+        }
+
+        class Usertable extends Component{
+            render(){
+                let div = document.createElement('div');
+                div.innerHTML = '我是Usertable';
+                div.className = 'Usertable'
+                return div;
+            }
+        }
+
+
+        render({
+            root:document.getElementById('div1'),
+            components:{
+                Cmp1,Usertable
+            },
+            methods:{
+                fn(){
+                    alert('点击了组件');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
