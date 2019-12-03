@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class A {
+            constructor() {
+                this._a = "aaaa";
+            }
+
+            get a() {
+                console.log('调用get');
+                return this._a;
+            }
+
+            set a(val) {
+                console.log('调用set');
+                this._a = val;
+            }
+        }
+
+        let aa = new A();
+        alert(aa.a);
+        aa.a = '123';
+        alert(aa.a);
+    </script>
+</body>
+
+</html>
