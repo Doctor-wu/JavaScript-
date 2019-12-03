@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Store{
+            constructor(){
+                this.name = 'dtwu',
+                this.age = 18;
+            }
+
+            get(key){
+                if(!this[key]) throw new Error(`${key}is not defined`);
+                return this[key];
+            }
+            
+            set(name ,val){
+                this[name] = val;
+            }
+
+            connect(cls){
+                let that = this;
+                class res extends cls{
+                    constructor(){
+                        super();
+                        this.set = that.set.bind(that);
+                        this.get = that.get.bind(that);
+                    }
+                }
+                return res;
+            }
+        }
+
+        let store = new Store();
+
+
+        let A = store.connect(class{
+            constructor(){
+
+            }
+        })
+
+        let B = store.connect(class{
+            constructor(){
+
+            }
+        })
+
+        let a =new A();
+        let b = new B();
+        // store.set('a','aaaa');
+        // alert(store.get('a'))
+    </script>
+</body>
+</html>

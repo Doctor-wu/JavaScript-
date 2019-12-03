@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class A{
+            constructor(){
+                this.a = "a";
+            }
+            show(){
+                alert(this.a);
+                alert(this.b);      //在父类中并没有定义b，此处的b为子类继承后子类中的b
+            }
+        }
+
+        class B extends A{
+            constructor(){
+                super();
+                this.b = "b";
+            }
+        }
+
+        let p = new B();
+        p.show();       //调用了父类中的show方法
+
+    </script>
+</body>
+
+</html>
