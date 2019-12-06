@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./VNode.js"></script>
+    <script src="./VText.js"></script>
+    <script src="./VElement.js"></script>
+    <script src="./VComponent.js"></script>
+    <script src="./assert.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root" +click="fn()" d-bind:value="a" :class="cls" d-if="true" d-show="" d-on:mouseover="fn2()"
+        title="I am a div">
+         [[a]]
+        [[b]]
+        [[b+a+']\''+b*a+"[[a/b+\"]]"]]
+        [[a+b+']\']']]
+        <ul>
+            <li>111</li>
+            <li id="lee">222</li>
+            <li>333</li>
+        </ul>
+    </div>
+
+    <script>
+        let cmp = new VComponent({
+            el: '#root',
+            data: {
+                a:12,
+                b:5
+            }
+        })
+        console.log(cmp);
+    </script>
+</body>
+
+</html>
