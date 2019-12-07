@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 0;
+            margin: 0;
+
+        }
+
+        .div1,
+        .div2 {
+            height: 306px;
+            width: 306px;
+            overflow: hidden;
+            float: left;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .div1 {
+            background-image: url('./img/zuihaoSmall.png');
+        }
+
+        .mask {
+            height: 150px;
+            width: 150px;
+            background-color: #CCC;
+            opacity: 0.3;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+
+        .div2 img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">
+        <div class="mask"></div>
+    </div>
+    <div class="div2"><img src="./img/zuihao.png" alt=""></div>
+    <script>
+        let div1 = document.querySelector('.div1');
+        let div2 = document.querySelector('.div2');
+        let img = document.querySelector('.div2 img');
+        let mask = document.querySelector('.mask');
+
+        div1.onmouseover = function () {
+            img.style.display = 'block'
+            mask.style.display = 'block'
+        }
+        div1.onmouseout = function () {
+            img.style.display = 'none'
+            mask.style.display = 'none'
+        }
+        div1.onmousemove = function (ev) {
+            let x = ev.pageX - div1.offsetLeft - mask.offsetWidth / 2;
+            let y = ev.pageY - div1.offsetTop - mask.offsetHeight / 2;
+            x = x<div1.offsetLeft? 0 : x;
+            x = x>div1.offsetWidth - mask.offsetWidth? div1.offsetWidth - mask.offsetWidth: x;
+            y = y<div1.offsetTop? 0 : y;
+            y = y>div1.offsetHeight - mask.offsetHeight? div1.offsetHeight - mask.offsetHeight: y; 
+            mask.style.left = x + 'px';
+            mask.style.top = y + 'px';
+
+            //大图的移动，按比例来算
+
+            let bx = (mask.offsetLeft/(div1.offsetWidth-mask.offsetWidth))*(img.offsetWidth-div2.offsetWidth);
+            let by = (mask.offsetTop/(div1.offsetHeight-mask.offsetHeight))*(img.offsetHeight-div2.offsetHeight);
+            img.style.left = - bx +'px';
+            img.style.top = - by + 'px';
+        }
+    </script>
+</body>
+
+</html>
